@@ -1809,7 +1809,8 @@ pub mod module {
                         target_os = "illumos",
                         target_os = "hurd",
                     ))] {
-                        flags.insert(nix::spawn::PosixSpawnFlags::from_bits_retain(libc::POSIX_SPAWN_SETSID));
+                        #[allow(clippy::useless_conversion)]
+                        flags.insert(nix::spawn::PosixSpawnFlags::from_bits_retain(libc::POSIX_SPAWN_SETSID.into()));
                     } else {
                         return Err(vm.new_not_implemented_error(
                             "setsid parameter is not supported on this platform",
